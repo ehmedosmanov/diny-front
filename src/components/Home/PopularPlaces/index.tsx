@@ -177,7 +177,7 @@ const PopularPlaces = () => {
             spaceBetween={16}
             modules={[Navigation, Pagination]}
             pagination={{
-              el: '.swiper-pagination',
+              el: '.places-swiper-pagination',
               clickable: true,
               renderBullet: (index, className) =>
                 `<span class="${className}"></span>`,
@@ -257,7 +257,7 @@ const PopularPlaces = () => {
               <ChevronLeft className="h-4 w-4" />
             </button>
 
-            <div className="swiper-pagination flex items-center gap-1"></div>
+            <div className="places-swiper-pagination flex items-center gap-1"></div>
 
             <button
               onClick={() => swiperRef.current?.slideNext()}

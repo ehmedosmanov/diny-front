@@ -8,7 +8,7 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className=" min-h-screen  py-[80px]">
+    <main className=" min-h-screen  pt-[80px]">
         <Navbar/>
       {children}
       <Footer/>

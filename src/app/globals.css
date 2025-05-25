@@ -170,7 +170,13 @@
   transform: scale(1.2);
 }
 
-.places-swiper + div .swiper-pagination {
+.places-swiper + div .places-swiper-pagination {
+  width: auto !important;
+  position: static;
+  margin: 0;
+}
+
+.blog-swiper + div .blog-swiper-pagination {
   width: auto !important;
   position: static;
   margin: 0;
