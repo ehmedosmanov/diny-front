@@ -15,14 +15,16 @@ export default function PageBanner({
         className="rounded-[12px] flex items-center justify-center overflow-hidden"
         style={{
           background: `url(${backgroundImage})`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center center",
-          minHeight: "50vh",
-          width: "100%",
-          position: "relative",
-        }}
-      />
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center center',
+          minHeight: '50vh',
+          width: '100%',
+          position: 'relative',
+        }}>
+        <div className="absolute inset-0 bg-black/40 z-[1]" />
+      </div>
+
       <div className="absolute z-10 text-center text-white">
         <h1 className="text-5xl line-clamp-5 leading-[46px] font-semibold">
           {title}

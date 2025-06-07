@@ -1,26 +1,25 @@
-import { Users, Star } from "lucide-react";
-import Image from "next/image";
+import { Users, Star } from 'lucide-react';
+import Image from 'next/image';
 
 export default function AboutContent() {
   return (
-    <section className="py-16">
+    <section className="pt-16">
       <div className="wrapper">
-        <div className="px-10">
+        <div className="px-4 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 ">
             <div className="relative">
               <div className="relative rounded-2xl ">
                 <Image
                   src="/images/about.png"
                   alt="Team working together"
-                  className="w-full object-cover"
+                  className="w-full object-cover md:mb-0 mb-5"
                   width={589}
                   height={500}
                 />
 
                 <div
                   className="absolute top-20 -right-[60px] min-w-[120px] z-[99999] bg-white px-6 py-4 shadow-lg rounded-[12px] 
-                            hidden md:block"
-                >
+                            hidden md:block">
                   <div className="text-center">
                     <p className="text-sm text-gray-600 mb-1">
                       Monthly Members
@@ -82,14 +81,14 @@ export default function AboutContent() {
               </div>
             </div>
 
-            <div className="space-y-6 pt-20 px-4 lg:px-0">
+            <div className="space-y-6 lg:pt-10 px-4 lg:px-0 lg:pl-8">
               <div>
-                <h1 className="text-4xl sm:text-5xl lg:text-[64px] font-bold text-gray-900 mb-10 sm:mb-14 leading-tight sm:leading-[100%]">
+                <h1 className="text-4xl sm:text-5xl lg:text-[64px] font-medium text-black mb-10 sm:mb-14 leading-tight sm:leading-[100%]">
                   About Us
                 </h1>
 
-                <div className="space-y-4 text-gray-600 text-base sm:text-lg leading-relaxed w-full lg:w-[80%]">
-                  <p>
+                <div className="space-y-4 text-[#505050] text-base sm:text-lg leading-relaxed w-full lg:w-[80%]">
+                  <p className="lg:text-base text-[13px]">
                     Welcome to AU Natural Organics. We are an organic store
                     creating natural, organic beauty products that nurture and
                     beautify your skin in a healthy way. We offer the
@@ -99,7 +98,7 @@ export default function AboutContent() {
                     nails in an eco-friendly and non-toxic way.
                   </p>
 
-                  <p>
+                  <p className="lg:text-base text-[13px]">
                     We curate all our products, including our organic essential
                     oils, natural butter, carrier oils, and oral care products,
                     from handpicked natural, fresh ingredients.

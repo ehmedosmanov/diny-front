@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function ContactForm() {
   return (
-    <Card className="shadow-xs border border-[#ECECECEE] w-[90%]">
+    <Card className="shadow-xs border border-[#ECECECEE] w-[100%]">
       <CardContent className="p-8">
         <form className="space-y-6">
           <div className="grid md:grid-cols-2 gap-4">
