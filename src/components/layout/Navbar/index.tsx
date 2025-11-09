@@ -94,7 +94,7 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href="/login"
+              href="en/login"
               className="hidden md:flex bg-[#F57D0D] xl:text-base text-[14px] items-center justify-center text-white px-6 py-2  rounded-md font-medium hover:bg-opacity-90 transition-colors">
               Log in
             </Link>

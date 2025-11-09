@@ -1,9 +1,6 @@
-import React from 'react'
+import React from "react";
+import RegisterPageClient from "./page.client";
 
-const RegisterPage = () => {
-  return (
-    <div>RegisterPage</div>
-  )
+export default function page() {
+  return <RegisterPageClient />;
 }
-
-export default RegisterPage
