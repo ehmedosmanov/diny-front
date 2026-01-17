@@ -73,7 +73,7 @@ const SearchBarHeader = () => {
         </div>
         <div className=" md:ml-2 flex-shrink-0 w-full sm:w-auto flex justify-center sm:justify-start">
           <span className="h-[43px] cursor-pointer p-[14px] inline-flex items-center justify-center w-full sm:w-[43px] rounded-[14px] bg-[#2F4F4F] hover:bg-[#1e3535]">
-            <Search className="h-[16px] w-[16px]" />
+            <Search className="h-[16px] w-[16px] text-white" />
           </span>
         </div>
       </div>

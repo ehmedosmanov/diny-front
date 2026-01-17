@@ -10,8 +10,8 @@ export default function Home() {
       <Header />
       <Categories />
       <PopularPlaces />
-      <RandomRestaurant/>
-      <BlogList/>
+      <RandomRestaurant />
+      <BlogList />
     </>
   );
 }

@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { VALID_LANGUAGES } from '../../middleware';
 import { Poppins, Raleway } from 'next/font/google';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 const poppins = Poppins({
   subsets: ['latin'],
