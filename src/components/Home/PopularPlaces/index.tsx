@@ -5,13 +5,7 @@ import {
   ChevronRight,
   ChevronLeft,
   Clock,
-  Heart,
-  Coffee,
-  UtensilsCrossed,
-  GlassWater,
-  IceCream2,
-  Pizza,
-  LayoutGrid,
+  Heart
 } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -96,18 +90,6 @@ const places = [
     distance: '3.5KM',
     isFavorite: false,
   },
-];
-
-const categories = [
-  { name: 'All', count: places.length, icon: LayoutGrid },
-  { name: 'Breakfast', count: 23, icon: Coffee },
-  { name: 'Lunch', count: 23, icon: UtensilsCrossed },
-  { name: 'Drinks', count: 23, icon: GlassWater },
-  { name: 'Desserts', count: 23, icon: IceCream2 },
-  { name: 'Fastfood', count: 23, icon: Pizza },
-  { name: 'qwd', count: 23, icon: Pizza },
-  { name: 'qwdqw', count: 23, icon: Pizza },
-  { name: 'qwdqwdqw', count: 23, icon: Pizza },
 ];
 
 const PopularPlaces = () => {

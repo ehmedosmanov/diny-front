@@ -1,17 +1,17 @@
-import { MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail } from 'lucide-react';
 
 const contactItems = [
   {
     icon: MapPin,
-    text: "London, 121 B Baker street",
+    text: 'London, 121 B Baker street',
   },
   {
     icon: Phone,
-    text: "+994 77 323 12 07",
+    text: '+994 77 323 12 07',
   },
   {
     icon: Mail,
-    text: "contact@looker.com",
+    text: 'contact@looker.com',
   },
 ];
 
@@ -20,11 +20,11 @@ export default function ContactInfo() {
     <div className="space-y-8">
       <div>
         <h2 className="text-3xl font-bold text-gray-900 mb-4">
-          Let's talk with us
+          Let&apos;s talk with us
         </h2>
         <p className="text-gray-600 text-lg w-2/3">
-          Questions, comments, or suggestions? Simply fill in the form and{" "}
-          we'll be in touch shortly.
+          Questions, comments, or suggestions? Simply fill in the form and{' '}
+          we&apos;ll be in touch shortly.
         </p>
       </div>
 

@@ -1,24 +1,11 @@
 'use client';
-import { useState, useRef } from 'react';
-import {
-  ChevronRight,
-  ChevronLeft,
-  Clock,
-  Heart,
-  Coffee,
-  UtensilsCrossed,
-  GlassWater,
-  IceCream2,
-  Pizza,
-  LayoutGrid,
-  Eye,
-} from 'lucide-react';
+import { useRef } from 'react';
+import { ChevronRight, ChevronLeft, Eye } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import Link from 'next/link';
 import Image from 'next/image';
 import { blogData } from '@/data/blogData';
 import { Card } from '@/components/ui/card';
@@ -69,7 +56,7 @@ const BlogList = () => {
 
                   <div className="pt-[18px] px-[13px] pb-[8px]">
                     <h2 className="text-xl font-bold text-gray-900 leading-tight mb-8">
-                      Discover Dubai's Top Off-Plan Beachfront Projects for 2024
+                      Discover Dubais Top Off-Plan Beachfront Projects for 2024
                     </h2>
 
                     <div className="flex items-center justify-between text-sm text-black border-t border-t-[#ECECECEE] py-[18px]">

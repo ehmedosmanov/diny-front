@@ -51,7 +51,7 @@ export default function Navbar() {
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out bg-white border-b border-gray-200',
         visible ? 'translate-y-0' : '-translate-y-full',
-        isScrolled ? 'shadow-md' : ''
+        isScrolled ? 'shadow-md' : '',
       )}>
       <div className=" px-[10px] xl:px-[72px] lg:px-[42px] mx-auto  py-[20px]">
         <div className="flex items-center justify-between">

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export const VALID_LANGUAGES = ['en', 'az', 'ru'];
+export type ValidLanguage = (typeof VALID_LANGUAGES)[number];
 const DEFAULT_LANGUAGE = 'en';
 
 function getPreferredLanguage(request: NextRequest): string {

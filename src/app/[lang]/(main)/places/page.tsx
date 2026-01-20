@@ -12,7 +12,9 @@ import { Button } from '@/components/ui/button';
 
 export default function PlacesPage() {
   const [showMobileMap, setShowMobileMap] = useState(false);
-  const [selectedRestaurant, setSelectedRestaurant] = useState<string | null>(null);
+  const [selectedRestaurant, setSelectedRestaurant] = useState<string | null>(
+    null,
+  );
 
   const restaurants = [
     {
@@ -110,14 +112,14 @@ export default function PlacesPage() {
     rating: restaurant.rating,
   }));
 
-  const handleMarkerClick = (location: any) => {
+  const handleMarkerClick = (location: { id: string }) => {
     setSelectedRestaurant(location.id);
-    
+
     // On mobile, close the map and scroll to restaurant
     if (showMobileMap) {
       setShowMobileMap(false);
     }
-    
+
     // Scroll to the restaurant card
     setTimeout(() => {
       const element = document.getElementById(`restaurant-${location.id}`);
@@ -158,7 +160,9 @@ export default function PlacesPage() {
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <Home className="h-4 w-4" />
               <ChevronRight className="h-4 w-4" />
-              <span className="hidden sm:inline">The 10 Best Restaurants in Barcelona</span>
+              <span className="hidden sm:inline">
+                The 10 Best Restaurants in Barcelona
+              </span>
               <span className="sm:hidden">Top Restaurants</span>
             </div>
 
@@ -173,14 +177,14 @@ export default function PlacesPage() {
             {/* Mobile Map Toggle Button */}
             <Button
               onClick={() => setShowMobileMap(!showMobileMap)}
-              className="lg:hidden w-full bg-[#CD7F4E] hover:bg-[#B86F3E] text-white"
-            >
+              className="lg:hidden w-full bg-[#CD7F4E] hover:bg-[#B86F3E] text-white">
               <MapIcon className="h-4 w-4 mr-2" />
               {showMobileMap ? 'Show List' : 'Show Map'}
             </Button>
 
             {/* Restaurant Cards - Hidden on mobile when map is shown */}
-            <div className={`space-y-4 ${showMobileMap ? 'hidden lg:block' : 'block'}`}>
+            <div
+              className={`space-y-4 ${showMobileMap ? 'hidden lg:block' : 'block'}`}>
               {restaurants.map((restaurant, index) => (
                 <div
                   key={index}
@@ -189,8 +193,7 @@ export default function PlacesPage() {
                     selectedRestaurant === restaurant.id
                       ? 'ring-2 ring-[#CD7F4E] rounded-lg shadow-lg'
                       : ''
-                  }`}
-                >
+                  }`}>
                   <RestaurantCard {...restaurant} />
                 </div>
               ))}
@@ -218,8 +221,7 @@ export default function PlacesPage() {
                   <Button
                     onClick={() => setShowMobileMap(false)}
                     variant="outline"
-                    className="w-full"
-                  >
+                    className="w-full">
                     Close Map
                   </Button>
                 </div>

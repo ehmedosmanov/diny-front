@@ -2,7 +2,6 @@ import Image from 'next/image';
 import React from 'react';
 import LogoImg from '@/assets/images/logo.png';
 import { navbarData } from '@/data/navbarData';
-import NavLink from '../Navbar/NavLink';
 import Link from 'next/link';
 import { Facebook, Instagram, Twitter } from 'lucide-react';
 
