@@ -39,9 +39,10 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params?: { lang?: string };
+  params?: Promise<{ lang?: string }>;
 }>) {
-  const paramLang = params?.lang;
+  const resolvedParams = params ? await params : undefined;
+  const paramLang = resolvedParams?.lang;
   const lang =
     paramLang && VALID_LANGUAGES.includes(paramLang) ? paramLang : 'en';
 

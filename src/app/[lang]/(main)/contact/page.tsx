@@ -1,7 +1,6 @@
 import ContactForm from "@/components/Contact/ContactForm";
 import ContactHero from "@/components/Contact/ContactHero";
 import ContactInfo from "@/components/Contact/ContactInfo";
-export { generateStaticParams } from '../static-params';
 
 
 export default function ContactPage() {

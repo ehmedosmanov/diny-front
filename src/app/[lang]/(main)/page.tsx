@@ -3,7 +3,6 @@ import BlogList from '@/components/Home/BlogList';
 import Categories from '@/components/Home/Categories';
 import PopularPlaces from '@/components/Home/PopularPlaces';
 import RandomRestaurant from '@/components/Home/RandomRestaurant';
-export { generateStaticParams } from '../static-params';
 
 
 export default function Home() {

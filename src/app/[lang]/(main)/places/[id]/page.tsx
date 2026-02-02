@@ -1,5 +1,4 @@
 import React from 'react';
-export { generateStaticParams } from '../static-params';
 
 export default async function OrderPage({
   params,

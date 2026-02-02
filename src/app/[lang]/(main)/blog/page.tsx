@@ -2,7 +2,6 @@ import CustomBreadCrumb from '@/components/shared/CustomBreadcrumb';
 import React from 'react';
 import BlogSlider from '@/components/Blog/BlogSlider';
 import BlogsSection from '@/components/Blog/BlogsSection';
-export { generateStaticParams } from '../static-params';
 
 const BlogPage = () => {
   const blogBreadCrumbItems = [
