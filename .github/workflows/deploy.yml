@@ -20,22 +20,8 @@ jobs:
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
           -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
           -d parse_mode=Markdown \
-          -d text="*Deploy started*\n\n Repo: ${{ github.repository }}\n Branch: master\n Commit: ${{ github.sha }}"
-      - name: Debug SSH key length
-        run: |
-            echo "KEY LENGTH:"
-            echo "${{ secrets.SSH_PRIVATE_KEY }}" | wc -c
+          -d text="*Deploy started*%0A%0ARepo: ${{ github.repository }}%0ABranch: master%0ACommit: ${{ github.sha }}"
 
-      - name: Test SSH
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: root
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          script: |
-            whoami
-            hostname
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.2.0
         with:
@@ -43,46 +29,56 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          command_timeout: 15m
-          timeout: 15m
+          command_timeout: 30m
+          timeout: 30m
           script: |
             set -e
-
+            
+            # Загрузка NVM
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
-            echo "Node version:"
+            
+            echo "=== Node version ==="
             node -v
             npm -v
-
-            echo "Enter project directory"
+            
+            echo "=== Enter project directory ==="
             cd /var/www/html/front
-
-            echo "⬇Pull latest code"
+            
+            echo "=== Pull latest code ==="
             git pull origin master
-
-            echo "Install dependencies"
-            npm ci --no-audit --no-fund --prefer-offline
-
-            echo "Build project"
-            npm run build
-
-            echo "Restart PM2"
+            
+            echo "=== Remove node_modules (if exists) ==="
+            rm -rf node_modules
+            
+            echo "=== Install dependencies ==="
+            NODE_OPTIONS="--max-old-space-size=1024" npm install --production --no-audit --no-fund --loglevel=verbose
+            
+            echo "=== Build project ==="
+            NODE_OPTIONS="--max-old-space-size=1024" npm run build
+            
+            echo "=== Restart PM2 ==="
             pm2 restart front --update-env || pm2 start npm --name front -- run start
-
-            echo "PM2 status"
+            
+            echo "=== PM2 status ==="
             pm2 status
+            
+            echo "=== Health check ==="
+            sleep 3
+            curl -f http://127.0.0.1:3000/en || echo "Health check failed"
+
       - name: Telegram notify (success)
         if: success()
         run: |
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
           -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
           -d parse_mode=Markdown \
-          -d text="✅ *Deploy successful!*\n\n🌍 https://diny.az\n🚀 App is live"
+          -d text="✅ *Deploy successful!*%0A%0A🌍 https://diny.az%0A🚀 App is live"
+
       - name: Telegram notify (failure)
         if: failure()
         run: |
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
           -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
           -d parse_mode=Markdown \
-          -d text="❌ *Deploy failed*\n\n⚠️ Check GitHub Actions logs"
+          -d text="❌ *Deploy failed*%0A%0A⚠️ Check GitHub Actions logs"
