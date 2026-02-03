@@ -1,0 +1,67 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to VPS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Telegram notify (start)
+        run: |
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
+          -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+          -d parse_mode=Markdown \
+          -d text="*Deploy started*\n\n Repo: ${{ github.repository }}\n Branch: master\n Commit: ${{ github.sha }}"
+
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            set -e
+
+            echo "Enter project directory"
+            cd /var/www/html/front
+
+            echo "⬇Pull latest code"
+            git pull origin master
+
+            echo "Install dependencies"
+            npm ci
+
+            echo "Build project"
+            npm run build
+
+            echo "Restart PM2"
+            pm2 restart front --update-env || pm2 start npm --name front -- run start
+
+            echo "PM2 status"
+            pm2 status
+
+      - name: Telegram notify (success)
+        if: success()
+        run: |
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
+          -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+          -d parse_mode=Markdown \
+          -d text="*Deploy successful!*\n\n https://diny.az\n App is live"
+
+      - name: Telegram notify (failure)
+        if: failure()
+        run: |
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
+          -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+          -d parse_mode=Markdown \
+          -d text="*Deploy failed*\n\n Check GitHub Actions logs"
