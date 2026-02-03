@@ -25,7 +25,7 @@ jobs:
         run: |
             echo "KEY LENGTH:"
             echo "${{ secrets.SSH_PRIVATE_KEY }}" | wc -c
-            
+
       - name: Test SSH
         uses: appleboy/ssh-action@v1.2.0
         with:
@@ -45,6 +45,13 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             set -e
+
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+            echo "Node version:"
+            node -v
+            npm -v
 
             echo "Enter project directory"
             cd /var/www/html/front
