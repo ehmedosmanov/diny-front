@@ -43,6 +43,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          command_timeout: 15m
+          timeout: 15m
           script: |
             set -e
 
@@ -60,7 +62,7 @@ jobs:
             git pull origin master
 
             echo "Install dependencies"
-            npm ci
+            npm ci --no-audit --no-fund --prefer-offline
 
             echo "Build project"
             npm run build
