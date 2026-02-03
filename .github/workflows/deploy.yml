@@ -21,6 +21,11 @@ jobs:
           -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
           -d parse_mode=Markdown \
           -d text="*Deploy started*\n\n Repo: ${{ github.repository }}\n Branch: master\n Commit: ${{ github.sha }}"
+      - name: Debug SSH key length
+        run: |
+            echo "KEY LENGTH:"
+            echo "${{ secrets.SSH_PRIVATE_KEY }}" | wc -c
+            
       - name: Test SSH
         uses: appleboy/ssh-action@v1.2.0
         with:
