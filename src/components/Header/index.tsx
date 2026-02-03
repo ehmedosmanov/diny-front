@@ -37,7 +37,7 @@ const Header = () => {
                   alt="Food Icon"
                   priority
                 />
-                Diny
+                Diny-Test
               </span>
 
               <h1 className="text-4xl md:text-[60px] font-semibold mb-[22px] md:mb-[42px] break-words sm:text-nowrap">
