@@ -31,9 +31,9 @@ jobs:
 
       - name: Create deployment package
         run: |
+          # Упаковываем только .next и package файлы (БЕЗ node_modules)
           tar -czf deploy.tar.gz \
             .next \
-            node_modules \
             package.json \
             package-lock.json \
             public
@@ -83,29 +83,39 @@ jobs:
           script: |
             set -e
             
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+            
             cd /var/www/html/front
             
             # Backup
-            echo "Creating backup..."
-            cp -r .next .next.backup-$(date +%Y%m%d-%H%M%S) 2>/dev/null || true
+            echo "=== Creating backup ==="
+            [ -d .next ] && cp -r .next .next.backup-$(date +%Y%m%d-%H%M%S) || true
             
             # Extract
-            echo "Extracting new build..."
+            echo "=== Extracting new build ==="
             tar -xzf /tmp/deploy.tar.gz
             
-            # Restart
-            echo "Restarting PM2..."
+            # Install dependencies (только production)
+            echo "=== Installing dependencies ==="
+            npm ci --omit=dev --prefer-offline
+            
+            # Restart PM2
+            echo "=== Restarting PM2 ==="
             pm2 restart front
             
             # Health check
+            echo "=== Health check ==="
             sleep 3
-            curl -f http://127.0.0.1:3000/en && echo "✅ Health check passed!"
+            curl -f http://127.0.0.1:3000/en && echo "✅ Health check passed!" || echo "❌ Health check failed!"
             
-            # Clean
+            # Cleanup
+            echo "=== Cleanup ==="
             rm /tmp/deploy.tar.gz
             ls -t .next.backup-* 2>/dev/null | tail -n +6 | xargs rm -rf 2>/dev/null || true
             
-            echo "Deployment complete!"
+            echo "🎉 Deployment complete!"
 
       - name: Telegram notify (success)
         if: success()
@@ -113,7 +123,7 @@ jobs:
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
           -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
           -d parse_mode=Markdown \
-          -d text="✅ *Deploy successful!*%0A%0A🌍 https://diny.az"
+          -d text="✅ *Deploy successful!*%0A%0A🌍 https://diny.az%0A🚀 App is live"
 
       - name: Telegram notify (failure)
         if: failure()
@@ -121,4 +131,4 @@ jobs:
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
           -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
           -d parse_mode=Markdown \
-          -d text="❌ *Deploy failed*"
+          -d text="❌ *Deploy failed*%0A%0A⚠️ Check GitHub Actions logs"
